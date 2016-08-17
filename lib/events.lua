@@ -48,7 +48,7 @@ function events.raiseEvents(event)
 				if not had.opened_self and now.opened_self then -- opened self
 					events.opened( player, 'self' )
 				elseif ( not had.opened ) and now.opened and now.opened.valid then -- opened entity
-					events.closed( player, 'entity', now.opened )
+					events.opened( player, 'entity', now.opened )
 				end
 
 				-- remember current state
