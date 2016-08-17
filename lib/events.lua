@@ -30,13 +30,13 @@ function events.raiseEvents(event)
 
 			if player.connected then
 
-				local had, now = global.playerData[player.index], player
+				local was, now = global.playerData[player.index], player
 
 				-- check if something closed...
-				if had.opened_self and not now.opened_self then -- closed self
+				if was.opened_self and not now.opened_self then -- closed self
 					events.closed( player, 'self' )
-				elseif had.opened and ( not now.opened or not now.opened.valid ) then -- closed entity
-					events.closed( player, 'entity', had.opened )
+				elseif was.opened and ( not now.opened or not now.opened.valid ) then -- closed entity
+					events.closed( player, 'entity', was.opened )
 				end
 
 				-- Note: Should get 2 events...
@@ -45,16 +45,16 @@ function events.raiseEvents(event)
 				-- ...hence no else/elseif at this point.
 
 				-- check if something opened...
-				if not had.opened_self and now.opened_self then -- opened self
+				if not was.opened_self and now.opened_self then -- opened self
 					events.opened( player, 'self' )
-				elseif ( not had.opened ) and now.opened and now.opened.valid then -- opened entity
+				elseif ( not was.opened ) and now.opened and now.opened.valid then -- opened entity
 					events.opened( player, 'entity', now.opened )
 				end
 
 				-- remember current state
 				-- quicker to just assign vals rather than recalc what changed
-				had.opened      = now.opened and now.opened.valid and now.opened--> intentional
-				had.opened_self = now.opened_self
+				was.opened      = now.opened and now.opened.valid and now.opened--> intentional
+				was.opened_self = now.opened_self
 
 			end--if player.connected
 
